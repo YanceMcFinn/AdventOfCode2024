@@ -34,7 +34,7 @@ fs.readFile('./Day02/input.txt', 'utf-8', (err, data) => {
     function problemDampener(row){
         if (isSafe(row) == false){
             for (let i = 0; i < row.length; i++){
-                if (isSafe(row.splice(i,1)) == true){
+                if (isSafe(row.toSpliced(i,1)) == true){
                     safeMap.safe += 1;
                     safeMap.unsafe -= 1;
                     break;
