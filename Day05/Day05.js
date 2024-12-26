@@ -41,14 +41,18 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
             }
         })
     })
-
-    fail.forEach((index) => {
-        pgPrints.splice(index,1);
-    })
+    
 
     pgPrints.forEach((pgSet) => {
-        midIndex = Math.floor(pgSet.length/2);
-        sum += pgSet[midIndex]
+        if(!fail.includes(pgPrints.indexOf(pgSet))){
+            midIndex = Math.floor(pgSet.length/2);
+            sum += pgSet[midIndex]
+        }
+    })
+
+    fail.forEach((failInd) => {
+        let failedSet = pgPrints[failInd]
+        console.log(failedSet)
     })
 
     console.log(sum)
