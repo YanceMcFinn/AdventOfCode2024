@@ -8,6 +8,7 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
     const fail = [];
     
     let sum = 0;
+    let failSum = 0;
 
     arr.map((item) => {
         if (item.includes('|')){
@@ -49,11 +50,25 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
             sum += pgSet[midIndex]
         }
     })
-
     fail.forEach((failInd) => {
-        let failedSet = pgPrints[failInd]
+        let failedSet = pgPrints[failInd];
+        for (let i = 0; i < failedSet.length-1; i++){
+            pgRules.forEach((rule) => {
+                if (rule.includes(failedSet[i]) && rule.includes(failedSet[i+1])){
+                    let first = failedSet[i]
+                    let second = failedSet[i+1]
+                    if (second == rule[0]){
+                        failedSet.splice(i,0,second)
+                        failedSet.splice(i+2,1)
+                    }
+
+                }
+            })
+        }
         console.log(failedSet)
+        midIndex = Math.floor(failedSet.length/2);
+            failSum += failedSet[midIndex]
     })
 
-    console.log(sum)
+    console.log(failSum)
 })
