@@ -8,7 +8,6 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
     const fail = [];
     
     let sum = 0;
-    let failSum = 0;
 
     const isOrdered = (pages, rules) => {
         for (let i = 0; i < pages.length - 1; i++) {
@@ -40,5 +39,5 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
         console.log(fail)
     })
 
-    console.log(failSum)
+    console.log(sum)
 })
