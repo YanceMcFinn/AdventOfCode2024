@@ -10,6 +10,7 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
     let sum = 0;
 
     const isOrdered = (pages, rules) => {
+        //75,47,61,53,29 75|47
         for (let i = 0; i < pages.length - 1; i++) {
           if (
             !rules.find((rule) => rule[0] === pages[i] && rule[1] === pages[i + 1])
@@ -23,8 +24,8 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
 
     for(let i=0; i<pgPrints.length - 1;i++){
         if(!isOrdered(pgPrints[i],pgRules)){
-            if (!fail.includes(pgPrints[i])){
-                fail.push(pgPrints[i])}
+            if (!fail.includes(i)){
+                fail.push(i)}
         }
         else {
             
@@ -34,9 +35,9 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
            
     }
 
-    fail.forEach((fail) => {
-        
-        console.log(fail)
+    fail.forEach((failInd) => {
+        let failedSet = pgPrints[failInd]
+        //console.log(failedSet)
     })
 
     console.log(sum)

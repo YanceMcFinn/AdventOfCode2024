@@ -23,8 +23,8 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
 
     for(let i=0; i<pgPrints.length - 1;i++){
         if(!isOrdered(pgPrints[i],pgRules)){
-            if (!fail.includes(pgPrints[i])){
-                fail.push(pgPrints[i])}
+            if (!fail.includes(pagePrints[i])){
+                fail.push(pagePrints[i])}
         }
         else {
             
