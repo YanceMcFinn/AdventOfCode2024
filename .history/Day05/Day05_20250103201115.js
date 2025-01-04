@@ -16,11 +16,11 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
     let failSum = 0;
 
     const isOrdered = (pages, rules) => {
-      for (let i = 0; i < pages.length - 1; i++) {
-        if (
-          !rules.find((rule) => rule[0] === pages[i] && rule[1] === pages[i + 1])
-        ) {
-          return false;
+      for (let i=0; i < rules.length; i++){
+        if(pages.includes(rules[i][0]) && pages.includes(rules[i][1])){
+          if(pages.indexOf(rules[i][0])>pages.indexOf(rules[i][1])){
+            return false;
+          }
         }
       }
       return true;
@@ -36,31 +36,25 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
     for(let i=0; i<pgPrints.length - 1;i++){
         if(isOrdered(pgPrints[i],pgRules)){
           midIndex = Math.floor(pgPrints[i].length/2);
-          sum += pgPrints[i][midIndex]
+          sum += parseInt(pgPrints[i][midIndex])
         }
         
         else {
             let set = pgPrints[i]
-            console.log(set)
             for (let i = 0; i < set.length - 1; i++){
               for(let j = i+1; j < set.length; j++){
                let testPgs = [set[j],set[i]]
                if(containsArray(pgRules, testPgs)){
-                let first = set[j]
-                let second = set[i]
-
-                set[i] = first
-                set[j] = second
+                set[j], set[i] = set[i], set[j]
                }
               }
             }
-            console.log(set)
             midIndex = Math.floor(set.length/2);
-            failSum += set[midIndex]
+            failSum += parseInt(set[midIndex])
                 
         }
            
     }
     let test = [[1,2],[3,4],5,6]
-    console.log(failSum)
+    console.log(sum)
 })

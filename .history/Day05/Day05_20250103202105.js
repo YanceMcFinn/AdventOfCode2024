@@ -16,11 +16,11 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
     let failSum = 0;
 
     const isOrdered = (pages, rules) => {
-      for (let i = 0; i < pages.length - 1; i++) {
-        if (
-          !rules.find((rule) => rule[0] === pages[i] && rule[1] === pages[i + 1])
-        ) {
-          return false;
+      for (let i=0; i < rules.length; i++){
+        if(pages.includes(rules[i][0]) && pages.includes(rules[i][1])){
+          if(pages.indexOf(rules[i][0])>pages.indexOf(rules[i][1])){
+            return false;
+          }
         }
       }
       return true;
@@ -36,7 +36,7 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
     for(let i=0; i<pgPrints.length - 1;i++){
         if(isOrdered(pgPrints[i],pgRules)){
           midIndex = Math.floor(pgPrints[i].length/2);
-          sum += pgPrints[i][midIndex]
+          sum += parseInt(pgPrints[i][midIndex])
         }
         
         else {
@@ -56,7 +56,7 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
             }
             console.log(set)
             midIndex = Math.floor(set.length/2);
-            failSum += set[midIndex]
+            failSum += parseInt(set[midIndex])
                 
         }
            
