@@ -45,7 +45,13 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
       }
       return true;
     }
-    
+
+    const containsArray = (arr, target) => {
+      return arr.some(innerArray => 
+        innerArray.length === target.length && 
+        innerArray.every((value, index) => value === target[index])
+      );
+    }
 
     for(let i=0; i<pgPrints.length;i++){
         if(isOrdered(pgPrints[i],pgRules)){
@@ -54,7 +60,20 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
         }
         
         else {
-            let orderedList = orderList(pgPrints[i],pgRules)
+            //let orderedList = orderList(pgPrints[i],pgRules)
+            let orderedList = pgPrints[i]
+            for (let i = 0; i < orderedList.length - 1; i++){
+              for(let j = i+1; j < orderedList.length; j++){
+               let testPgs = [orderedList[j],orderedList[i]]
+               if(containsArray(pgRules, testPgs)){
+                let first = orderedList[j]
+                let second = orderedList[i]
+
+                orderedList[i] = first
+                orderedList[j] = second
+               }
+              }
+            }
             midIndex = Math.floor(orderedList.length/2);
             failSum += parseInt(orderedList[midIndex])
                 

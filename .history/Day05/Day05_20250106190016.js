@@ -45,9 +45,8 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
       }
       return true;
     }
-    
 
-    for(let i=0; i<pgPrints.length;i++){
+    for(let i=0; i<pgPrints.length - 1;i++){
         if(isOrdered(pgPrints[i],pgRules)){
           midIndex = Math.floor(pgPrints[i].length/2);
           sum += parseInt(pgPrints[i][midIndex])

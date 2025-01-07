@@ -9,7 +9,7 @@ const orderList = (update, rules) => {
     dic[page] = rules
       .filter((rule) => rule[0] === page)
       .map((rule) => rule[1])
-      .filter((rule) => update.includes(rule));
+      .filter((rule) => update.includes(rule))
   });
 
   while (Object.keys(dic).length) {

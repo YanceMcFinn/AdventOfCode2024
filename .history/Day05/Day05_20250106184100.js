@@ -3,7 +3,14 @@ fs = require('fs')
 fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
     let [pgRules, pgPrints] = data.split('\n\n');
     pgRules = pgRules.split('\n').map((rule) => rule.split('|'));
+    for (let i=0; i < pgRules.length; i++){
+      pgRules[i] = pgRules[i].map((num) => parseInt(num))
+    }
     pgPrints = pgPrints.split('\n').map((pgSet) => pgSet.split(','))
+    for (let i=0; i < pgPrints.length; i++){
+      pgPrints[i] = pgPrints[i].map((num) => parseInt(num))
+    }
+    const fail = [];
     
     let sum = 0;
     let failSum = 0;
@@ -14,16 +21,16 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
       
       update.forEach((page) => {
         pageMap[page] = rules
-          .filter((rule) => rule[0] === page)
+          .filter((rule) => rule[0] == page)
           .filter((rule) => update.includes(rule[1]))
           .map((rule) => rule[1])
       })
  
-      while(Object.keys(pageMap).length){
+      while(Object.keys(pageMap).length > 0){
         const lastPg = Object.keys(pageMap).find((key) => pageMap[key].length == 0);
 
         for (const page in pageMap){
-          pageMap[page] = pageMap[page].filter((page) => page !== lastPg)
+          pageMap[page] = pageMap[page].filter((page) => page != lastPg)
         }
 
         delete pageMap[lastPg]
@@ -45,22 +52,40 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
       }
       return true;
     }
-    
 
-    for(let i=0; i<pgPrints.length;i++){
+    const containsArray = (arr, target) => {
+      return arr.some(innerArray => 
+        innerArray.length === target.length && 
+        innerArray.every((value, index) => value === target[index])
+      );
+    }
+
+    for(let i=0; i<pgPrints.length - 1;i++){
         if(isOrdered(pgPrints[i],pgRules)){
           midIndex = Math.floor(pgPrints[i].length/2);
-          sum += parseInt(pgPrints[i][midIndex])
+          sum += pgPrints[i][midIndex]
         }
         
         else {
-            let orderedList = orderList(pgPrints[i],pgRules)
-            midIndex = Math.floor(orderedList.length/2);
-            failSum += parseInt(orderedList[midIndex])
+            let set = pgPrints[i]
+            for (let i = 0; i < set.length - 1; i++){
+              for(let j = i+1; j < set.length; j++){
+               let testPgs = [set[j],set[i]]
+               if(containsArray(pgRules, testPgs)){
+                let first = set[j]
+                let second = set[i]
+
+                set[i] = first
+                set[j] = second
+               }
+              }
+            }
+            midIndex = Math.floor(set.length/2);
+            failSum += set[midIndex]
                 
         }
            
     }
-
-    console.log(failSum)
+    let test = [[1,2],[3,4],5,6]
+    console.log(orderList(pgPrints[5],pgRules))
 })

@@ -45,7 +45,6 @@ fs.readFile('./Day05/input.txt', 'utf-8', (err, data) => {
       }
       return true;
     }
-    
 
     for(let i=0; i<pgPrints.length;i++){
         if(isOrdered(pgPrints[i],pgRules)){
